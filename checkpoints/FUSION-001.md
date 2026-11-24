@@ -1,0 +1,3 @@
+# Fusion mission 002 checkpoint 001
+
+Pinned Omega baseline 3e33e13eb7257a6b9865fb9d0889c1a214345dbf: CI runs 45459474543 and 45459474492 succeeded. Parent commit 9c87d88d20db9c916c24cc7e0c2e08e25b23420d inspected: pinned Alpha/Omega baseline; port 8766 conflicts with S-Brain. Added trusted callback pre-execution gate, synthesis only, durable claim, authenticated terminal evidence and four tests. New CI pending. Callback is not sandboxed; semantic verification and request immutability remain open. SBI/SCC exact contracts, platform containment, endpoints and packages pending. No paid resources; no parent changes.
