@@ -1,0 +1,21 @@
+name: Alpha interoperability
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: shiyamprimetrade-sketch/S-Alpha
+          ref: f4976e3d5ef39d9c75a24a1c5460ce162e77170b
+          path: alpha-source
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: git -C alpha-source rev-parse HEAD
+      - run: python alpha_acceptance.py alpha-source
+      - run: python benchmark.py
