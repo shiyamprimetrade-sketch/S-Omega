@@ -1,0 +1,2 @@
+# Desktop developer preview
+Requires Python 3.11 or newer. Install the CI wheel with python -m pip install --no-index PATH_TO_WHEEL. Run s-omega doctor, s-omega fingerprint FILE.json, or s-omega verify SPEC.json compute.py. The CLI verifies restricted arithmetic structure and fingerprints JSON. It is not a standalone executable or full Fusion interface. Windows descriptor containment remains unsupported. No runtime third-party dependencies; build requires setuptools and wheel tooling. No physical PC installation verified.

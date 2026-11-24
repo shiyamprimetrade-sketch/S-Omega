@@ -19,3 +19,4 @@ jobs:
       - run: git -C alpha-source rev-parse HEAD
       - run: python alpha_acceptance.py alpha-source
       - run: python benchmark.py
+      - run: python fusion_acceptance.py alpha-source
