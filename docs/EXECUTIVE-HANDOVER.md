@@ -1,0 +1,3 @@
+# Executive handover — v0.1 RC
+
+Verified pinned integration workflow 45459346935 succeeded. Alpha 12/12 cases, matching SHA-256, authenticated and persisted true. Benchmark 20 iterations x 8 checks, median 7.52353 ms, maximum 11.371959 ms on Linux CI. Earlier Omega 37-method workflow 45459085340 succeeded; platform-specific skips apply. Latest Omega workflow 45459346537 was still running at check. Documentation-only commits followed. Physical Android acceptance, original SBI/SCC conformance and founder approval remain outstanding. Draft PR #1 remains unmerged. Prototype only; no production security certification. No additional spending.
