@@ -31,7 +31,15 @@ def inspect(request, signature, key, database, root):
     return evidence
 
 def verify_record(ident, status, evidence, key):
-    record = evidence["record"]
-    if record["id"] != ident or record["status"] != status:
+    try:
+        if not isinstance(key, bytes) or len(key) < 32:
+            return False
+        record = evidence["record"]
+        tag = evidence["tag"]
+        if not isinstance(record, dict) or not isinstance(tag, str) or not tag.isascii():
+            return False
+        if record["id"] != ident or record["status"] != status:
+            return False
+        return hmac.compare_digest(seal(record,key)["tag"],tag)
+    except (KeyError, TypeError, ValueError):
         return False
-    return hmac.compare_digest(seal(record,key)["tag"],evidence["tag"])
