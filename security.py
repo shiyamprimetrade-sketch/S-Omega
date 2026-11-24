@@ -1,3 +1,4 @@
+from contextlib import closing
 import hashlib
 import hmac
 import sqlite3
@@ -14,7 +15,7 @@ def claim(request, signature, key, database):
     if not isinstance(signature, str) or not signature.isascii() or not hmac.compare_digest(expected, signature):
         raise ValueError("authentication failed")
     ident, operation = validate(request)
-    with sqlite3.connect(database) as conn:
+    with closing(sqlite3.connect(database)) as conn, conn:
         conn.execute("CREATE TABLE IF NOT EXISTS claims (id TEXT PRIMARY KEY)")
         try:
             conn.execute("INSERT INTO claims VALUES (?)", (ident,))
