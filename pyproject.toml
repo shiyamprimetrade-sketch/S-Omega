@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "s-omega-preview"
+version = "0.1.0"
+description = "Project S Omega developer preview"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.scripts]
+s-omega = "omega_cli:main"
+
+[tool.setuptools]
+py-modules = ["omega","omega_cli","alpha_gateway","security","continuum","workspace","recovery","journal","transactional","restart","api","fusion_gate","semantic","fusion","fusion_recovery","sbi","endpoints"]
