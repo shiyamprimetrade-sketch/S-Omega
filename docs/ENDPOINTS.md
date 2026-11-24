@@ -1,0 +1,3 @@
+# Endpoint migration proposal
+
+Parent integration reports Alpha/S-Brain conflict on 8766. Reserve 8766 for existing S-Brain compatibility pending owner confirmation. Fusion uses local subprocesses and no listener. New services should use loopback 127.0.0.1 and OS-assigned ports via endpoints.reserve(), retaining the actual listening socket throughout service lifetime. Do not release and rebind a discovered port. Existing Alpha server must adopt configurable endpoints or socket ownership before migration is complete. No public binding or authentication provided by this helper. No upstream service configuration changed.
