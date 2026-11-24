@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v4
         with:
           repository: shiyamprimetrade-sketch/S-Alpha
-          ref: main
+          ref: f4976e3d5ef39d9c75a24a1c5460ce162e77170b
           path: alpha-source
           persist-credentials: false
       - uses: actions/setup-python@v5
