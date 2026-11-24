@@ -4,6 +4,8 @@ import re
 import stat
 
 def read_artifact(root, task_id, limit=1048576):
+    if type(limit) is not int or not 1 <= limit <= 1048576:
+        raise ValueError("invalid artifact limit")
     if not isinstance(task_id, str) or not re.fullmatch(r"[A-Za-z0-9_-]{1,64}", task_id):
         raise ValueError("invalid task id")
     if not hasattr(os, "O_NOFOLLOW") or os.open not in os.supports_dir_fd:
@@ -15,8 +17,9 @@ def read_artifact(root, task_id, limit=1048576):
         try:
             fd = os.open("compute.py", os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK, dir_fd=taskfd)
             try:
-                if not stat.S_ISREG(os.fstat(fd).st_mode):
-                    raise ValueError("not a regular file")
+                info = os.fstat(fd)
+                if not stat.S_ISREG(info.st_mode) or info.st_nlink != 1:
+                    raise ValueError("not a single-link regular file")
                 with os.fdopen(fd, "rb", closefd=False) as stream:
                     data = stream.read(limit + 1)
                 if len(data) > limit:
