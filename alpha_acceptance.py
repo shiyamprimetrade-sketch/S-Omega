@@ -15,11 +15,13 @@ def run(alpha):
         workspace=root/"workspace"
         result=subprocess.run([sys.executable,"-m","s_alpha","--db",str(root/"alpha.db"),"execute",str(alpha/"examples/synthesis.json"),"--out",str(workspace)],cwd=alpha,capture_output=True,text=True,timeout=60,check=True)
         response=json.loads(result.stdout)
-        if response.get("id")!=request["id"] or response.get("version")!=2 or response.get("status")=="failed":
+        if response.get("id")!=request["id"] or response.get("version")!=2 or response.get("status")!="verified":
             raise ValueError("unexpected Alpha response")
         key=secrets.token_bytes(32)
         db=str(root/"omega.db")
         evidence=inspect(request,sign(request,key),key,db,workspace)
+        if response.get("artifact",{}).get("sha256") != evidence["record"]["sha256"]:
+            raise ValueError("Alpha and Omega artifact hashes differ")
         ident=request["id"]
         return {"alpha_response":response,"omega_evidence":evidence,"authenticated":verify_record(ident,"completed",evidence,key),"persisted":Journal(db).get(ident)==("completed",evidence)}
 
