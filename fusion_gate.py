@@ -20,7 +20,7 @@ def execute(request, signature, key, database, runner, *, allowed=()):
         result=runner(request)
         if proof(request)!=digest:
             raise ValueError("request mutated")
-        record={"id":ident,"status":"completed","request_digest":digest,"result_digest":proof(result)}
+        record={"id":ident,"status":"completed","request_digest":digest,"result_digest":proof(result),"result":result}
     except Exception as exc:
         record={"id":ident,"status":"failed","request_digest":digest,"error":type(exc).__name__}
         journal.finish(ident,"failed",seal(record,key))
