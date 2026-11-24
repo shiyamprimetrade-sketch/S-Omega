@@ -1,3 +1,4 @@
+from contextlib import closing
 import sqlite3
 import tempfile
 import unittest
@@ -31,7 +32,7 @@ class SecurityTests(unittest.TestCase):
     def test_tamper(self):
         store = Store(self.db, self.key)
         store.save("a", {"step":3})
-        with sqlite3.connect(self.db) as conn:
+        with closing(sqlite3.connect(self.db)) as conn, conn:
             conn.execute("UPDATE snapshots SET payload=?", (b'{"step":4}',))
         with self.assertRaises(ValueError):
             store.load("a")
